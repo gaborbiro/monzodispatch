@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http.response import HttpResponse
 import requests
+from django.conf import settings
 
 def main(request):
     data = {}
     if request.method == 'POST':
-        apiKey = request.POST.get('api_key').strip()
+        apiKey = settings.FIREBASE_API_KEY
         deviceToken = request.POST.get('token').strip()
         notificationTitle = request.POST.get('notification_title').strip()
         notificationBody = request.POST.get('notification_body').strip()

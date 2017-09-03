@@ -14,7 +14,7 @@ import os
 
 PACKAGE_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-FIREBASE_API_KEY = 'AIzaSyBOC8Jn6Diu6JpxmimS4_PKy-mzIDTfvo0'
+FIREBASE_API_KEY = 'AAAAOKgxl2E:APA91bF1qypoLEFXuVCkI05ntor86viVonpg7gz16zN5uclm61fLTSMubcsw6Xe0hkFQ2CreeScblfsSWx1JZS1sr9Vg8LuhR8SGtAfI5o3wm_BcNGoZb9Wa7bYMFU3MeHUVKdVoMgTv'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
