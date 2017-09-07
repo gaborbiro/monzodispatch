@@ -3,7 +3,7 @@ from django.http.response import HttpResponse
 import requests
 from django.conf import settings
 
-def main(request):
+def form(request):
     data = {}
     if request.method == 'POST':
         apiKey = settings.FIREBASE_API_KEY
@@ -11,12 +11,12 @@ def main(request):
         notificationTitle = request.POST.get('notification_title').strip()
         notificationBody = request.POST.get('notification_body').strip()
         
-        notification = None
+        data = None
         
         if notificationTitle or notificationBody:
-            notification = {"title": notificationTitle, "body": notificationBody}
+            data = {"title": notificationTitle, "body": notificationBody}
         
-        return HttpResponse(send_fcm_message(apiKey, deviceToken, notification, None))
+        return HttpResponse(send_fcm_message(apiKey, deviceToken, None, data))
     else:
         return render(request, 'test/main.html', data)
 
@@ -33,3 +33,10 @@ def send_fcm_message(apiKey, deviceToken, notification, data):
     
     r = requests.post(url, headers=headers, json=payload)
     return r.text
+
+def register_fcm_device(request):
+    print("register_fcm_device")
+    if request.method == 'POST':
+        print("Registration request from " + request.POST.get("name"))
+    return HttpResponse(status=200)
+        

@@ -20,5 +20,6 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', views.main),
+    url(r'^register/', views.register_fcm_device),
+    url(r'^$', views.form),
 ]
