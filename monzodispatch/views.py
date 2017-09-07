@@ -14,7 +14,8 @@ def form(request):
         data = None
         
         if notificationTitle or notificationBody:
-            data = {"title": notificationTitle, "body": notificationBody}
+            notification = {"title": notificationTitle, "body": notificationBody}
+            data = {"notification": notification, "blah": "blahblah"}
         
         return HttpResponse(send_fcm_message(apiKey, deviceToken, None, data))
     else:
