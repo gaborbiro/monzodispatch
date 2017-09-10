@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponse
 import requests
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 
 def form(request):
     data = {}
@@ -35,9 +36,10 @@ def send_fcm_message(apiKey, deviceToken, notification, data):
     r = requests.post(url, headers=headers, json=payload)
     return r.text
 
+@csrf_exempt
 def register_fcm_device(request):
     print("register_fcm_device")
     if request.method == 'POST':
-        print("Registration request from " + request.POST.get("name"))
+        print("Registration request from " + str(request.GET.get('name')))
     return HttpResponse(status=200)
         
