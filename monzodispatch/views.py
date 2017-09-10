@@ -45,6 +45,12 @@ def register_fcm_device(request):
         token = request.GET.get('token')
         h = hash(token)
         print("Registration request from " + str(token))
-        monzo_token = MonzoToken(hash=h, token=token)
-        monzo_token.save()
-        return JsonResponse({'hash' : h})
+        
+        monzo_tokens = MonzoToken.objects.filter(token = token)
+        
+        if monzo_tokens.count() > 0:
+            monzo_token = monzo_tokens[0]
+        else:
+            monzo_token = MonzoToken(hash = h, token = token)
+            monzo_token.save()
+        return JsonResponse({'hash' : monzo_token.hash})
