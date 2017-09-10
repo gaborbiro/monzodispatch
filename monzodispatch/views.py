@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from django.http.response import HttpResponse
+from django.http.response import JsonResponse
 import requests
+import json
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from dispatch.models import MonzoToken
 
 def form(request):
     data = {}
@@ -40,6 +42,9 @@ def send_fcm_message(apiKey, deviceToken, notification, data):
 def register_fcm_device(request):
     print("register_fcm_device")
     if request.method == 'POST':
-        print("Registration request from " + str(request.GET.get('name')))
-    return HttpResponse(status=200)
-        
+        token = request.GET.get('token')
+        h = hash(token)
+        print("Registration request from " + str(token))
+        monzo_token = MonzoToken(hash=h, token=token)
+        monzo_token.save()
+        return JsonResponse({'hash' : h})
