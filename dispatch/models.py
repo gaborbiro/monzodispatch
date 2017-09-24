@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 class MonzoToken(models.Model):
     hash = models.CharField(max_length=50, null=False, blank=False, unique=True)
