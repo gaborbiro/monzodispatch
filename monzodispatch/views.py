@@ -22,6 +22,7 @@ def form(request):
         
         return HttpResponse(send_fcm_message(apiKey, deviceToken, None, data))
     else:
+        data["token"] = MonzoToken.objects.latest('added').token
         return render(request, 'test/main.html', data)
 
 def send_fcm_message(apiKey, deviceToken, notification, data):
