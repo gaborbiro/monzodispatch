@@ -32,14 +32,14 @@ def form(request):
 def send_fcm_message(apiKey, deviceToken, notification, json):
     url = 'http://fcm.googleapis.com/fcm/send'
     headers = {"Content-Type": "application/json", "Authorization": "key=%s" % apiKey}
-    payload = {"to": "chbzC9P1PTk:APA91bEQ0ZV4OqLQZOaMf4TeXCDaChzJgi3yR0g3l4HRLFYLbqF6yFcVqSHR7ugJRZrY0ulO3LHyaMSgO0z0F2ZfcOEPmOstJ8P35OO4VE9MH_QivQ_TFtk_xuIr3ETxpZXqso90V8Rt"}
+    payload = {"to": deviceToken}
     
     if notification:
         payload["notification"] = notification
     
     if json:
         payload["data"] = json
-    
+    print("Sending " + str(payload))
     r = requests.post(url, headers=headers, json=payload)
     return r.text
 
@@ -62,11 +62,9 @@ def register_fcm_device(request):
     
 @csrf_exempt
 def push(request, hash=None):
-    if request.method == 'POST':
-        apiKey = settings.FIREBASE_API_KEY
-        deviceToken = MonzoToken.objects.get(hash=hash).token
-        
-        if deviceToken:
-            print(send_fcm_message(apiKey, deviceToken, None, json.loads(request.body.decode('utf-8'))))
-        pass
+    apiKey = settings.FIREBASE_API_KEY
+    deviceToken = MonzoToken.objects.get(hash=hash).token
+    
+    if deviceToken:
+        print(send_fcm_message(apiKey, deviceToken, None, json.loads(request.body.decode('utf-8'))))
     return HttpResponse()
