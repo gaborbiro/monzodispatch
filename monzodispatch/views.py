@@ -66,5 +66,10 @@ def push(request, hash=None):
     deviceToken = MonzoToken.objects.get(hash=hash).token
     
     if deviceToken:
-        print(send_fcm_message(apiKey, deviceToken, None, json.loads(request.body.decode('utf-8'))))
+        body = request.body.decode('utf-8')
+        if body:
+            json = json.loads(request.body.decode('utf-8'))
+        else:
+            json = ""
+        print(send_fcm_message(apiKey, deviceToken, None, json))
     return HttpResponse()
