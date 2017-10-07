@@ -67,9 +67,8 @@ def push(request, hash=None):
     
     if deviceToken:
         body = request.body.decode('utf-8')
+        json = ""
         if body:
             json = json.loads(request.body.decode('utf-8'))
-        else:
-            json = ""
         print(send_fcm_message(apiKey, deviceToken, None, json))
     return HttpResponse()
