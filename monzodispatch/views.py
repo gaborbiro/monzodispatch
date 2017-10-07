@@ -67,8 +67,9 @@ def push(request, hash=None):
     
     if deviceToken:
         body = request.body.decode('utf-8')
-        json = ""
+        json = {}
         if body:
             json = json.loads(request.body.decode('utf-8'))
+        json["notification"] = {"title": "MonzoDispatch", "body": "Monzo pinged us"}
         print(send_fcm_message(apiKey, deviceToken, None, json))
     return HttpResponse()
