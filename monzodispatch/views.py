@@ -29,7 +29,7 @@ def form(request):
             pass
         return render(request, 'test/main.html', data)
 
-def send_fcm_message(apiKey, deviceToken, notification, json):
+def send_fcm_message(apiKey, deviceToken, notification, data):
     url = 'http://fcm.googleapis.com/fcm/send'
     headers = {"Content-Type": "application/json", "Authorization": "key=%s" % apiKey}
     payload = {"to": deviceToken}
@@ -37,8 +37,8 @@ def send_fcm_message(apiKey, deviceToken, notification, json):
     if notification:
         payload["notification"] = notification
     
-    if json:
-        payload["data"] = json
+    if data:
+        payload["data"] = data
     print("Sending " + str(payload))
     r = requests.post(url, headers=headers, json=payload)
     return r.text
@@ -70,7 +70,7 @@ def push(request, hash=None):
         print("body: " + body)
         data = {}
         if body:
-            data = json.loads(body)
-        data["notification"] = {"title": "MonzoDispatch", "body": "Monzo pinged us"}
+            data["monzo_data"] = json.loads(body)
+#         data["notification"] = {"title": "MonzoDispatch", "body": "Monzo pinged us"}
         print(send_fcm_message(apiKey, deviceToken, None, data))
     return HttpResponse()
