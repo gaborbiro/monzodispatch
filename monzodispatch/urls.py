@@ -22,5 +22,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^register', views.register_fcm_device),
     url(r'^$', views.form),
-    url(r'^webhook/(?P<hash>[0-9\-]+)$', views.push)
+    url(r'^webhook/(?P<hash>[0-9\-]+)$', views.push),
+    url(r'^event/', views.event)    
 ]

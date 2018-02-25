@@ -2,10 +2,23 @@ from django.shortcuts import render
 from django.http.response import JsonResponse
 import requests
 import json
+from datetime import datetime
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from dispatch.models import MonzoToken
 from django.http.response import HttpResponse
+
+@csrf_exempt
+def event(request):
+    log = str(request.body)
+    print("log: " + log)
+    
+    if request.method == 'POST':
+        body = json.loads(request.body.decode('utf-8'))
+        start = datetime.strptime(str(body['start']), "%B %d, %Y at %I:%M%p")
+        print("start: {}, title: {}".format(str(start), body['title']))
+    
+    return JsonResponse({'log' : log})
 
 def form(request):
     data = {}
@@ -51,12 +64,12 @@ def register_fcm_device(request):
         h = hash(token)
         print("Registration request from " + str(token))
         
-        monzo_tokens = MonzoToken.objects.filter(token = token)
+        monzo_tokens = MonzoToken.objects.filter(token=token)
         
         if monzo_tokens.count() > 0:
             monzo_token = monzo_tokens[0]
         else:
-            monzo_token = MonzoToken(hash = h, token = token)
+            monzo_token = MonzoToken(hash=h, token=token)
             monzo_token.save()
         return JsonResponse({'hash' : monzo_token.hash})
     
