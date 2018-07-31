@@ -5,3 +5,4 @@ Django
 # If still having issues, go to http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml and download the appropriate wheel file for your environment
 
 requests
+demjson

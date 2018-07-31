@@ -2,6 +2,7 @@ import json
 from datetime import datetime
 
 import requests
+import demjson
 from django.conf import settings
 from django.http.response import HttpResponse
 from django.http.response import JsonResponse
@@ -13,24 +14,23 @@ from dispatch.models import MonzoToken
 
 @csrf_exempt
 def event(request):
-    log = str(request.body)
-    print("log: " + log)
+    print("event: " + request.body.decode('utf-8'))
+    content = demjson.decode(request.body.decode('utf-8'))
 
     if request.method == 'POST':
-        body = json.loads(request.body.decode('utf-8'))
-        start = datetime.strptime(str(body['start']), "%B %d, %Y at %I:%M%p")
-        print("start: {}, title: {}".format(str(start), body['title']))
+        start = datetime.strptime(content['start'], "%B %d, %Y at %I:%M%p")
+        print("start: {}, title: {}".format(str(start), content['title']))
 
         token = MonzoToken.objects.latest('added').token
         data = {"event": {
-            "title": body['title'],
+            "title": content['title'],
             "start": str(start),
-            "description": body['description'],
-            "where": body['where'],
-            "url": body['url']}}
+            "description": content['description'],
+            "where": content['where'],
+            "url": content['url']}}
         send_fcm_message(token, None, data)
 
-    return JsonResponse({'log': log})
+    return JsonResponse({'result': 'success'})
 
 
 def form(request):
