@@ -14,20 +14,22 @@ from dispatch.models import MonzoToken
 
 @csrf_exempt
 def event(request):
-    print("event: " + request.body.decode('utf-8'))
-    content = demjson.decode(request.body.decode('utf-8'))
+	json = request.body.decode('utf-8')
+    print("event: " + json)
+    event = demjson.decode(json)
 
     if request.method == 'POST':
-        start = datetime.strptime(content['start'], "%B %d, %Y at %I:%M%p")
-        print("start: {}, title: {}".format(str(start), content['title']))
+        start = datetime.strptime(event['start'], "%B %d, %Y at %I:%M%p")
+		end = datetime.strptime(event['end'], "%B %d, %Y at %I:%M%p")
 
         token = MonzoToken.objects.latest('added').token
         data = {"event": {
-            "title": content['title'],
+            "title": event['title'],
             "start": str(start),
-            "description": content['description'],
-            "where": content['where'],
-            "url": content['url']}}
+            "end": str(end),
+            "description": event['description'],
+            "where": event['where'],
+            "url": event['url']}}
         send_fcm_message(token, None, data)
 
     return JsonResponse({'result': 'success'})
