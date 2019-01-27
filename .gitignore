@@ -1,3 +1,5 @@
+.idea/*
+
 db.sqlite3
 /dispatch/migrations
 
@@ -48,6 +50,7 @@ coverage.xml
 # Django stuff:
 *.log
 *.pot
+venv/
 
 # Sphinx documentation
 docs/_build/

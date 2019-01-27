@@ -1,8 +1,8 @@
 # run with pip install -r requirements
 
-Django
+Django==2.1.5
 # If you have issues installing lxml, try "pip install lib\lxml-3.6.4-cp36-cp36m-win_amd64.whl"
 # If still having issues, go to http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml and download the appropriate wheel file for your environment
 
-requests
-demjson
+requests==2.21.0
+demjson==2.2.3

@@ -14,14 +14,14 @@ from dispatch.models import MonzoToken
 
 @csrf_exempt
 def event(request):
-	json = request.body.decode('utf-8')
-    print("event: " + json)
-    event = demjson.decode(json)
+    body_json = request.body.decode('utf-8')
+    print(body_json)
+    content = demjson.decode(body_json)
 
     if request.method == 'POST':
-        start = datetime.strptime(event['start'], "%B %d, %Y at %I:%M%p")
-		end = datetime.strptime(event['end'], "%B %d, %Y at %I:%M%p")
-
+        start = datetime.strptime(content['start'], "%B %d, %Y at %I:%M%p")
+        end = datetime.strptime(content['end'], "%B %d, %Y at %I:%M%p")
+        print("start: {}, title: {}".format(str(start), content['title']))
         token = MonzoToken.objects.latest('added').token
         data = {"event": {
             "title": event['title'],
