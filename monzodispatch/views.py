@@ -24,12 +24,12 @@ def event(request):
         print("start: {}, title: {}".format(str(start), content['title']))
         token = MonzoToken.objects.latest('added').token
         data = {"event": {
-            "title": event['title'],
+            "title": content['title'],
             "start": str(start),
             "end": str(end),
-            "description": event['description'],
-            "where": event['where'],
-            "url": event['url']}}
+            "description": content['description'],
+            "where": content['where'],
+            "url": content['url']}}
         send_fcm_message(token, None, data)
 
     return JsonResponse({'result': 'success'})
