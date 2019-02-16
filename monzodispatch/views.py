@@ -41,8 +41,8 @@ def form(request):
         device_token = request.POST.get('token').strip()
         notification_title = request.POST.get('notification_title').strip()
         notification_body = request.POST.get('notification_body').strip()
+        data = demjson.decode(request.POST.get('data').strip())
 
-        data = None
         notification = None
 
         if notification_title or notification_body:
