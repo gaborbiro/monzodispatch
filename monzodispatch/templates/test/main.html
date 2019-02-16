@@ -4,7 +4,7 @@
     <title>MonzoDispatch FCM Test</title>
 </head>
 <body>
-<form method="POST" action="/">
+<form method="POST" action="/" id="push">
     <table>
         <tr>
             <td>Device token:</td>
@@ -21,10 +21,31 @@
         </tr>
         <tr>
             <td>Data (json):</td>
-            <td colspan="2"><input type="text" name="data"
-                                   value="{'monzo_data': {'data': {'amount':100,'category':'luxury','created':'2019-02-16T13:13:19.464Z','description':'Test transaction','id':'Test id','notes':'Test notes'}}}"
-                                   style="width: 100%"
-            >
+            <td colspan="2"><textarea name="data"
+                                      form="push"
+                                      style="width: 100%"
+                                      rows="21">
+{
+   'monzo_data':{
+      'data':{
+         'amount':100,
+         'category':'luxury',
+         'created':'2019-02-16T13:13:19.464Z',
+         'description':'Test transaction',
+         'id':'Test id',
+         'notes':'Test notes'
+      }
+   },
+   'event':{
+      'description':'Test description',
+      'end':'2019-02-16 21:00:00',
+      'start':'2019-02-16 20:00:00',
+      'title':'Test event 3',
+      'url':'Test url',
+      'where':'Test location'
+   }
+}
+            </textarea>
             </td>
         </tr>
     </table>
