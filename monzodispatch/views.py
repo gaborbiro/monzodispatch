@@ -36,18 +36,19 @@ def event(request):
 
 
 def form(request):
-    data = {}
+    data = None
     if request.method == 'POST':
         device_token = request.POST.get('token').strip()
         notification_title = request.POST.get('notification_title').strip()
         notification_body = request.POST.get('notification_body').strip()
-        data = demjson.decode(request.POST.get('data').strip())
+        rawData = request.POST.get('data').strip()
+        if rawData:
+            data = demjson.decode(rawData)
 
         notification = None
 
         if notification_title or notification_body:
             notification = {"title": notification_title, "body": notification_body}
-            # data = {}
 
         return HttpResponse(send_fcm_message(device_token, notification, data))
     else:
