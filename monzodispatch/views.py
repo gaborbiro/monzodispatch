@@ -36,21 +36,22 @@ def event(request):
 
 
 def form(request):
-    data = None
+    data = {}
     if request.method == 'POST':
         device_token = request.POST.get('token').strip()
         notification_title = request.POST.get('notification_title').strip()
         notification_body = request.POST.get('notification_body').strip()
         rawData = request.POST.get('data').strip()
+        notificationData = None
         if rawData:
-            data = demjson.decode(rawData)
+            notificationData = demjson.decode(rawData)
 
         notification = None
 
         if notification_title or notification_body:
             notification = {"title": notification_title, "body": notification_body}
 
-        return HttpResponse(send_fcm_message(device_token, notification, data))
+        return HttpResponse(send_fcm_message(device_token, notification, notificationData))
     else:
         try:
             data["token"] = MonzoToken.objects.latest('added').token
