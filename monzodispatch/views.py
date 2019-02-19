@@ -35,6 +35,10 @@ def event(request):
     return JsonResponse({'result': 'success'})
 
 
+@csrf_exempt
+def investments(request):
+    return render(request, 'test/investments.html')
+
 def form(request):
     data = {}
     if request.method == 'POST':
@@ -57,7 +61,7 @@ def form(request):
             data["token"] = MonzoToken.objects.latest('added').token
         except:
             pass
-        return render(request, 'test/main.html', data)
+        return render(request, 'test/monzo_push_test.html', data)
 
 
 def send_fcm_message(device_token, notification, data):

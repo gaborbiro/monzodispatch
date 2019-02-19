@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^register', views.register_fcm_device),
     url(r'^$', views.form),
     url(r'^webhook/(?P<hash>[0-9\-]+)$', views.push),
-    url(r'^event/', views.event)    
+    url(r'^event/', views.event),
+    url(r'^investments/', views.investments)
 ]
