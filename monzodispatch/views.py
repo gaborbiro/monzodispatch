@@ -37,7 +37,8 @@ def event(request):
 
 @csrf_exempt
 def investments(request):
-    return render(request, 'test/investments.html')
+    data = {"message": "Last loaded at: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+    return render(request, 'test/investments.html', data)
 
 def form(request):
     data = {}
