@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from monzodispatch.viewclasses import StaticFileView
 from . import views
 
 urlpatterns = [
@@ -24,5 +25,6 @@ urlpatterns = [
     url(r'^$', views.form),
     url(r'^webhook/(?P<hash>[0-9\-]+)$', views.push),
     url(r'^event/', views.event),
-    url(r'^investments/', views.investments)
+    url(r'^investments/', views.investments),
+    url(r'^rsssample.xml', StaticFileView.as_view(dir='xml', file_name='remoteok.xml'))
 ]

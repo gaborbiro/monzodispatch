@@ -1,15 +1,15 @@
 import json
 from datetime import datetime
 
-import requests
 import demjson
+import requests
 from django.conf import settings
 from django.http.response import HttpResponse
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from dispatch.models import MonzoToken
+from monzodispatch.models import MonzoToken
 
 
 @csrf_exempt
@@ -39,6 +39,7 @@ def event(request):
 def investments(request):
     data = {"message": "Last loaded at: " + datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
     return render(request, 'test/investments.html', data)
+
 
 def form(request):
     data = {}
