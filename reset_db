@@ -1,12 +1,11 @@
 # Unix/Linux only!
-chmod +x /home/arlecchino/monzodispatch/monzodispatch/reset_db
 
 # delete database and migration files
-rm db.sqlite3
-rm -rf monzodispatch/migrations/*
+rm  db.sqlite3
+rm  -rf monzodispatch/migrations/*
 
 # regenerate migration files and database based on current models
 python manage.py makemigrations monzodispatch
 python manage.py migrate
 
-#python manage.py createsuperuser --username admin@canibutit.com --email admin@canibutit.com
+python manage.py createsuperuser --username admin@canibuyit.com --email admin@canibuyit.com
