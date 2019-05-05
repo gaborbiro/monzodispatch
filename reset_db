@@ -3,7 +3,7 @@ chmod +x /home/arlecchino/monzodispatch/monzodispatch/reset_db
 
 # delete database and migration files
 rm db.sqlite3
-rm -rf dispatch/migrations/*
+rm -rf monzodispatch/migrations/*
 
 # regenerate migration files and database based on current models
 python manage.py makemigrations dispatch

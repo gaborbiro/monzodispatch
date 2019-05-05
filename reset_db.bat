@@ -1,7 +1,7 @@
 del db.sqlite3
-del dispatch\migrations\*
+del monzodispatch\migrations\*
 
-python manage.py makemigrations dispatch
+python manage.py makemigrations monzodispatch
 python manage.py migrate
 
 REM python manage.py createsuperuser --username admin@monosaur.com --email admin@monosaur.com
