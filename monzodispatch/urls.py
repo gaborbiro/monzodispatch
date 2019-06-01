@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^$', views.form),
     url(r'^webhook/(?P<hash>[0-9\-]+)$', views.push),
     url(r'^event/', views.event),
+    url(r'^test/', views.test),
     url(r'^investments/', views.investments),
     url(r'^rsssample.rss', StaticFileView.as_view(dir='files', file_name='remoteok.xml'))
 ]
