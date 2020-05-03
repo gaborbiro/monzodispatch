@@ -67,7 +67,7 @@ def form(request):
 
 
 def send_fcm_message(device_token, notification, data):
-    url = 'http://fcm.googleapis.com/fcm/send'
+    url = 'https://fcm.googleapis.com/fcm/send'
     headers = {"Content-Type": "application/json", "Authorization": "key=%s" % settings.FIREBASE_API_KEY}
     payload = {"to": device_token}
 
